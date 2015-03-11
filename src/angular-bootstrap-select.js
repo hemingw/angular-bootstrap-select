@@ -194,11 +194,12 @@ function selectpickerDirective($parse, $timeout) {
           element.selectpicker('setStyle', val);
         });
       });
-
-      $timeout(function () {
-        element.selectpicker($parse(attrs.selectpicker)());
-        element.selectpicker('refresh');
-      });
+      if(!element.data('selectpicker')){
+        $timeout(function () {
+          element.selectpicker($parse(attrs.selectpicker)());
+          element.selectpicker('refresh');
+        });
+      }
 
       if (attrs.ngModel) {
         scope.$watch(attrs.ngModel, refresh, true);
